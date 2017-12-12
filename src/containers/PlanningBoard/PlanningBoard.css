@@ -1,0 +1,41 @@
+.PlanningBoard {
+  margin: 20px;
+  margin-top: 60px;
+  background-color: white;
+  padding: 10px;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+.PlanningColumn {
+  width: 20%;
+  display: inline-block;
+  vertical-align: top;
+  height: 100%;
+}
+
+.PlanningColumn__Content {
+  background-color: #ededed;
+  padding: 10px;
+  height: calc(100% - 140px);
+  margin:10px;
+}
+
+.PlanningColumn__Content--Highlight1 {
+  background-color: #c1dddd;
+}
+
+.PlanningColumn__Title {
+  font-size: 1.4rem;
+  padding-left: 10px;
+  color: #999;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.PlanningBoard__Title {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #999;
+  font-weight: 400;
+}

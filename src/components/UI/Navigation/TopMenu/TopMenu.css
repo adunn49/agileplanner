@@ -1,0 +1,34 @@
+.TopMenu {
+  width: 100%;
+  background: #8d8d8d;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 40px;
+  color: white;
+}
+
+.TopMenu__Title {
+  display: inline-block;
+  font-weight: bold;
+  margin-left: 20px;
+}
+
+.TopMenu ul {
+  margin: 0;
+  height: 28px;
+  display: inline-block;
+}
+
+.TopMenu ul li {
+  display: inline-block;
+  margin: 10px;
+}
+
+.TopMenu ul li a {
+  color: white;
+}
+
+.TopMenu ul li a.active {
+  text-decoration: underline;
+}
