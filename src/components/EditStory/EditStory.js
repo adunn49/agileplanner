@@ -16,7 +16,8 @@ class EditStory extends Component {
     /* This will be used for a new user story. */
     story: {
       title: '',
-      storyStatus: '0'
+      storyStatus: '0',
+      storySize: ''
     },
     isEditing: false
   };
@@ -90,31 +91,59 @@ class EditStory extends Component {
       <div className={classes.EditStory}>
         <h1>{title}</h1>
         <form>
-          <FormGroup controlId="title">
-            <ControlLabel>Title</ControlLabel>
-            <FormControl onChange={(event) => this.handleChange(event, 'title')}
-              type="text"
-              placeholder="Enter Title"
-              value={this.state.story.title}/>
-          </FormGroup>
-          <FormGroup controlId="description">
-            <ControlLabel>Description</ControlLabel>
-            <FormControl placeholder="Enter Description" value={this.state.story.description}/>
-          </FormGroup>
-          <FormGroup controlId="storyStatus">
-            <ControlLabel>Story Status</ControlLabel>
-            <FormControl componentClass="select" placeholder="Select"
-              value={this.state.story.storyStatus}
-              onChange={(event) => this.handleChange(event, 'storyStatus')}>
-              <option value="0">Backlog</option>
-              <option value="1">Planning</option>
-              <option value="2">Defined</option>
-              <option value="3">In Progress</option>
-              <option value="4">Complete</option>
-            </FormControl>
-          </FormGroup>
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-sm-12">
+                <FormGroup controlId="title">
+                  <ControlLabel>Title</ControlLabel>
+                  <FormControl onChange={(event) => this.handleChange(event, 'title')}
+                    type="text"
+                    placeholder="Enter Title"
+                    value={this.state.story.title}/>
+                </FormGroup>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-sm-12">
+                <FormGroup controlId="description">
+                  <ControlLabel>Description</ControlLabel>
+                  <FormControl placeholder="Enter Description" value={this.state.story.description}/>
+                </FormGroup>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-sm-6">
+                <FormGroup controlId="storyStatus">
+                  <ControlLabel>Story Status</ControlLabel>
+                  <FormControl componentClass="select" placeholder="Select"
+                    value={this.state.story.storyStatus}
+                    onChange={(event) => this.handleChange(event, 'storyStatus')}>
+                    <option value="0">Backlog</option>
+                    <option value="1">Planning</option>
+                    <option value="2">Defined</option>
+                    <option value="3">In Progress</option>
+                    <option value="4">Complete</option>
+                  </FormControl>
+                </FormGroup>
+              </div>
+              <div className="col-sm-6">
+                <FormGroup controlId="storySize">
+                  <ControlLabel>Story Size</ControlLabel>
+                  <FormControl placeholder="Enter points estimate"
+                     onChange={(event) => this.handleChange(event, 'storySize')}
+                     value={this.state.story.storySize}/>
+                </FormGroup>
+              </div>
+            </div>
+        </div>
         </form>
-        <button onClick={this.doSaveHandler}>Save</button>
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-sm-12">
+              <button onClick={this.doSaveHandler}>Save</button>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

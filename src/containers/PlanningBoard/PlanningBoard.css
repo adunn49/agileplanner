@@ -17,8 +17,17 @@
 .PlanningColumn__Content {
   background-color: #ededed;
   padding: 10px;
-  height: calc(100% - 140px);
+  min-height: calc(100% - 140px);
   margin:10px;
+  border-radius: 4px;
+}
+
+.PlanningColumn__TotalPoints {
+  text-align: center;
+  font-size: 1.8rem;
+  color: #fff;
+  border-radius: 4px;
+  background-color: #ccc;
 }
 
 .PlanningColumn__Content--Highlight1 {
