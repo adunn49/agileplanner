@@ -4,6 +4,8 @@ var express = require('express');
 var bodyParser = require('body-parser');
 
 var app = express();
+var router = express.Router();
+
 const port = process.env.PORT;
 
 app.use(bodyParser.json());
@@ -23,14 +25,17 @@ app.use(function(req, res, next) {
 });
 
 // Routes
-app.get('/users', ctrlUsers.usersGet);
-app.post('/users', ctrlUsers.usersPost);
+router.get('/users', ctrlUsers.usersGet);
+router.post('/users', ctrlUsers.usersPost);
 
-app.post('/stories', ctrlStories.storiesPost);
-app.get('/stories', ctrlStories.storiesGet);
-app.get('/stories/:id', ctrlStories.storiesGetWithId);
-app.patch('/stories/:id', ctrlStories.storiesPatchWithId);
-app.delete('/stories/:id', ctrlStories.storiesDeleteWithId);
+router.post('/stories', ctrlStories.storiesPost);
+router.get('/stories', ctrlStories.storiesGet);
+router.get('/stories/:id', ctrlStories.storiesGetWithId);
+router.patch('/stories/:id', ctrlStories.storiesPatchWithId);
+router.delete('/stories/:id', ctrlStories.storiesDeleteWithId);
+
+//Use our router configuration when we call /api
+app.use('/api', router);
 
 app.listen(port, () => {
   console.log(`Started on port ${port}`);
