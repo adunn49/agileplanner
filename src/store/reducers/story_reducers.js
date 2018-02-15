@@ -12,16 +12,12 @@ const setStories = (state, action) => {
 };
 
 const setStory = (state, action) => {
-  let story = action.story;
-  story['id'] = action.storyId;
   return updateObject(state, { story: action.story });
 }
 
 const deleteStory = (state, action) => {
-  console.log('here');
   let stories = [...state.stories].filter(story => story._id !== action.storyId);
   let updated = updateObject(state, {stories: stories});
-  console.log('Updated', updated);
   return updated;
 }
 
