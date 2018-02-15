@@ -1,31 +1,35 @@
 import React from 'react';
 import classes from './PlanningBoard.css';
 import UserStory from '../../components/UserStory/UserStory';
+import {NavLink} from 'react-router-dom';
 
 const planningColumn = (props) => {
-  const items = props.stories.map(story => {
-    return <UserStory key={story.id} story={story} />
-  });
   let columnClasses = [classes.PlanningColumn__Content];
-  console.log('Planning Status',props.planningStatus);
   if (props.planningStatus === 'Backlog') {
     columnClasses.push(classes['PlanningColumn__Content--Highlight1']);
   }
-  console.log(columnClasses);
 
   let getCategoryTotalPoints = () => {
     let totalPoints = props.stories.reduce((total, story) => (
-      total + ((story.storySize && story.storySize !== '') ? parseInt(story.storySize) : 0)), 0);
+      total + ((story.storySize && story.storySize !== '') ? parseInt(story.storySize, 10) : 0)), 0);
       return props.stories.length === 0 ? 'Empty' : 'Total ' + totalPoints + 'pts';
   };
+
+  let addIcon = (props.planningStatus === 'Backlog') ? (
+    <div className={classes.BacklogAdd}>
+      <NavLink to="/addstory"><span className={['glyphicon', 'glyphicon-plus-sign'].join(' ')}></span></NavLink>
+    </div>) : null;
 
   return (
     <div className={classes.PlanningColumn}>
       <h1 className={classes.PlanningColumn__Title}>{props.title}</h1>
-        <div className={columnClasses.join(' ')}>
-          {items}
-          <div className={classes.PlanningColumn__TotalPoints}>{getCategoryTotalPoints()}</div>
-        </div>
+      <div className={columnClasses.join(' ')}>
+        {addIcon}
+        {props.stories.map(story => {
+          return <UserStory onDeleteStory={storyId => props.onDelete(storyId)} key={story.id} story={story} />
+        })}
+        <div className={classes.PlanningColumn__TotalPoints}>{getCategoryTotalPoints()}</div>
+      </div>
     </div>
   )
 };

@@ -6,6 +6,7 @@ const topMenu = (props) => {
     <nav className={classes.TopMenu}>
       <div className={classes.TopMenu__Title}>Agile Planner</div>
       <ul>
+        <li><NavLink to="/team">Team</NavLink></li>
         <li><NavLink to="/planning">Planning Board</NavLink></li>
         <li><NavLink to="/storylist">User Stories</NavLink></li>
         <li><NavLink to="/addstory">Add User Story</NavLink></li>

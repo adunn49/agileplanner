@@ -2,10 +2,17 @@ import React, { Component } from 'react';
 import {FormGroup, ControlLabel, FormControl} from 'react-bootstrap';
 import { connect } from 'react-redux';
 
-import * as actionTypes from '../../store/actions';
-import * as actions from '../../store/actions';
+import * as actions from '../../store/actions/story_actions';
 import classes from './EditStory.css';
 import axios from '../../axios-stories';
+
+const STORY_STATUS_ENUM = [
+  'backlog',
+  'planning',
+  'defined',
+  'progress',
+  'complete'
+];
 
 /**
  * A Component for adding or editing a new user story.
@@ -16,8 +23,9 @@ class EditStory extends Component {
     /* This will be used for a new user story. */
     story: {
       title: '',
-      storyStatus: '0',
-      storySize: ''
+      description: '',
+      storyStatus: STORY_STATUS_ENUM[0],
+      storySize: null
     },
     isEditing: false
   };
@@ -31,7 +39,6 @@ class EditStory extends Component {
         isEditing: true
       })
       this.props.onInitStory(this.props.match.params.id);
-      console.log(this.props);
     } else {
       this.setState({
         isEditing: false
@@ -68,22 +75,21 @@ class EditStory extends Component {
   doSaveHandler = () => {
     if (this.state.isEditing) {
       let story = {...this.state.story};
-      let id = '' + story.id;
-      delete story.id;
-      axios.patch('/stories/' + id + '.json', {...this.state.story})
+      axios.patch('/stories/' + story._id, {...this.state.story})
         .then(response => {
-          this.props.history.push({pathname: '/planning'})
+          this.props.history.goBack();
         });
     } else {
-      axios.post('/stories.json', {...this.state.story})
+      axios.post('/stories', {...this.state.story})
         .then(response => {
-          this.props.history.push({pathname: '/planning'})
+          this.props.history.goBack();
         });
     }
   }
 
   render() {
-    const title = this.state.story.id === '' ? 'Add Story': 'Edit Story';
+    console.log('story', this.state.story);
+    const title = this.state.story._id === undefined ? 'Add Story': 'Edit Story';
     if (!this.state.story) {
       return null;
     }
@@ -107,7 +113,9 @@ class EditStory extends Component {
               <div className="col-sm-12">
                 <FormGroup controlId="description">
                   <ControlLabel>Description</ControlLabel>
-                  <FormControl placeholder="Enter Description" value={this.state.story.description}/>
+                  <FormControl placeholder="Enter Description"
+                    onChange={(event) => this.handleChange(event, 'description')}
+                    value={this.state.story.description}/>
                 </FormGroup>
               </div>
             </div>
@@ -118,11 +126,9 @@ class EditStory extends Component {
                   <FormControl componentClass="select" placeholder="Select"
                     value={this.state.story.storyStatus}
                     onChange={(event) => this.handleChange(event, 'storyStatus')}>
-                    <option value="0">Backlog</option>
-                    <option value="1">Planning</option>
-                    <option value="2">Defined</option>
-                    <option value="3">In Progress</option>
-                    <option value="4">Complete</option>
+                    {STORY_STATUS_ENUM.map((status) => {
+                      return (<option value={status}>{status}</option>);
+                    })}
                   </FormControl>
                 </FormGroup>
               </div>

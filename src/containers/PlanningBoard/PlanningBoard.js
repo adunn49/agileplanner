@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import * as actionTypes from '../../store/actions';
-import UserStory from '../../components/UserStory/UserStory';
 import classes from './PlanningBoard.css';
 import PlanningColumn from './PlanningColumn';
-import * as actions from '../../store/actions';
+import * as actions from '../../store/actions/story_actions';
+import Aux from '../../hoc/Aux/Auxillary';
+import Modal from '../../components/UI/Modal/Modal';
 
 
 /**
@@ -20,7 +20,8 @@ export class PlanningBoard extends Component {
       'Defined',
       'In Progress',
       'Complete'
-    ]
+    ],
+    showDeleteConfirm: false
   };
 
   componentDidMount() {
@@ -31,14 +32,19 @@ export class PlanningBoard extends Component {
     let items = [];
     for (let index = 0; index < this.state.stati.length; index++) {
       let filteredStories = this.props.stories.filter(story =>
-        parseInt(story.storyStatus) === index
+        parseInt(story.storyStatus, 10) === index
       );
-      items.push(<PlanningColumn planningStatus={this.state.stati[index]} title={this.state.stati[index]} stories={filteredStories} />);
+      items.push(<PlanningColumn onDelete={storyId => this.props.onDeleteStory(storyId)} planningStatus={this.state.stati[index]} title={this.state.stati[index]} stories={filteredStories} />);
     }
     return (
-      <div className={classes.PlanningBoard} >
-        {items}
-      </div>
+      <Aux>
+        <div className={classes.PlanningBoard} >
+          {items}
+        </div>
+        <Modal show={this.state.showDeleteConfirm} modalClosed={this.purchaseCancelHandler}>
+            Delete?
+        </Modal>
+      </Aux>
     );
   }
 }
@@ -51,7 +57,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-          onInitStories: () => dispatch(actions.initStories())
+          onInitStories: () => dispatch(actions.initStories()),
+          onDeleteStory: (storyId) => dispatch(actions.initDeleteStory(storyId))
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(PlanningBoard);

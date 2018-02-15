@@ -1,0 +1,32 @@
+.glyphicon {
+  background: #ddd;
+  margin: 4px 2px;
+  font-size: 10px;
+  color: white;
+  border-radius: 12px;
+  padding: 5px;
+  cursor: pointer;
+  position: relative;
+}
+
+.glyphicon:hover {
+  background: #999;
+}
+
+.glyphicon-trash:hover {
+  background: #e97979;
+}
+
+@keyframes hoverIcon {
+  0% {
+    font-size: 10px;
+  }
+
+  50% {
+    font-size: 16px;
+  }
+
+  100% {
+    font-size: 12px;
+  }
+}

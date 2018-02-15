@@ -1,4 +1,4 @@
-import * as actionTypes from '../actionTypes';
+import * as actionTypes from '../actions/actionTypes';
 import {updateObject} from '../../common/utilties';
 
 const initialState = {
@@ -6,14 +6,8 @@ const initialState = {
 };
 
 const setStories = (state, action) => {
-    let stories = [];
-    for (let key in action.stories) {
-      let story = action.stories[key];
-      story['id'] = key;
-      stories.push(story);
-    }
     return updateObject( state, {
-        stories: stories
+        stories: action.stories
     });
 };
 
@@ -23,11 +17,20 @@ const setStory = (state, action) => {
   return updateObject(state, { story: action.story });
 }
 
+const deleteStory = (state, action) => {
+  console.log('here');
+  let stories = [...state.stories].filter(story => story._id !== action.storyId);
+  let updated = updateObject(state, {stories: stories});
+  console.log('Updated', updated);
+  return updated;
+}
+
 
 const reducers = ( state = initialState, action ) => {
     switch ( action.type ) {
         case actionTypes.SET_STORIES: return setStories(state, action);
         case actionTypes.SET_STORY: return setStory(state, action);
+        case actionTypes.DELETE_STORY: return deleteStory(state, action);
         default: return state;
     }
 };

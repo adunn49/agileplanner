@@ -7,19 +7,7 @@
 
   .UserStory__Header {
     text-align: right;
-  }
-  .UserStory__Header span {
-    background: #ddd;
-    margin: 4px 10px;
-    font-size: 10px;
-    color: white;
-    border-radius: 12px;
-    padding: 5px;
-    cursor: pointer;
-  }
-
-  .UserStory__Header span:hover {
-    background: #999;
+    margin: 5px;
   }
 
   .UserStory__Header > h1 {
@@ -62,6 +50,9 @@
   padding: 0 15px;
 }
 
+.glyphicon-trash:hover {
+  background: #e97979;
+}
 
 .Color1 {
 }
