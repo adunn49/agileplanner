@@ -41,7 +41,7 @@ app.use('/api', router);
 // Express only serves static assets in production
 console.log('Mode:::' + process.env.NODE_ENV);
 if (process.env.NODE_ENV === 'production') {
-  let pathStr = path.join(__dirname, '/build');
+  let pathStr = path.join(__dirname, '../build');
   console.log('Static path::::' + pathStr);
   app.use(express.static(pathStr));
 }
