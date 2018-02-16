@@ -42,6 +42,7 @@ app.use('/api', router);
 console.log('Mode:::' + process.env.NODE_ENV);
 if (process.env.NODE_ENV === 'production') {
   let pathStr = path.join(__dirname, '/build');
+  console.log('Static path::::' + pathStr);
   app.use(express.static(pathStr));
 }
 
