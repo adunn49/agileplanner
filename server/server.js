@@ -39,8 +39,10 @@ router.delete('/stories/:id', ctrlStories.storiesDeleteWithId);
 app.use('/api', router);
 
 // Express only serves static assets in production
+console.log('Mode:::' + process.env.NODE_ENV);
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '/build')));
+  let pathStr = path.join(__dirname, '/build');
+  app.use(express.static(pathStr));
 }
 
 app.listen(port, () => {
