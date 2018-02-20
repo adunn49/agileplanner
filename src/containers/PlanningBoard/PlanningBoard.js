@@ -15,11 +15,11 @@ export class PlanningBoard extends Component {
 
   state = {
     stati: [
-      'Backlog',
-      'In Planning',
-      'Defined',
-      'In Progress',
-      'Complete'
+      'backlog',
+      'planning',
+      'defined',
+      'progress',
+      'complete'
     ],
     showDeleteConfirm: false
   };
@@ -31,10 +31,16 @@ export class PlanningBoard extends Component {
   render () {
     let items = [];
     for (let index = 0; index < this.state.stati.length; index++) {
-      let filteredStories = this.props.stories.filter(story =>
-        parseInt(story.storyStatus, 10) === index
+      let filteredStories = this.props.stories.filter(story => {
+          console.log(story.storyStatus);
+          return story.storyStatus === this.state.stati[index];
+        }
       );
-      items.push(<PlanningColumn onDelete={storyId => this.props.onDeleteStory(storyId)} planningStatus={this.state.stati[index]} title={this.state.stati[index]} stories={filteredStories} />);
+      items.push(<PlanningColumn
+          onDelete={storyId => this.props.onDeleteStory(storyId)}
+          planningStatus={this.state.stati[index]}
+          title={this.state.stati[index]}
+          stories={filteredStories} />);
     }
     return (
       <Aux>

@@ -17,14 +17,14 @@ class UserStory extends Component {
     return (
         <div className={classes.UserStory}>
           <div className={classes['UserStory__Header']}>
-            <NavLink to={'/editstory/' + this.props.story.id}>
+            <NavLink to={'/editstory/' + this.props.story._id}>
               <ButtonIcon
                 title="Edit User Story"
                 glyphicon="glyphicon-pencil" />
             </NavLink>
             <ButtonIcon
               title="Delete User Story"
-              onClick={() => this.props.onDeleteStory(this.props.story.id)}
+              onClick={() => this.props.onDeleteStory(this.props.story._id)}
               glyphicon="glyphicon-trash" />
           </div>
           <div className={classes['UserStory__Body']}><h1 className={classes.UserStory__Body__Title}>{this.props.story.title}</h1></div>

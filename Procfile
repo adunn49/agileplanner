@@ -1,2 +1,2 @@
-web: node scripts/start.js
-web: node server/server.js
+web: nodemon scripts/start.js
+api: nodemon server/server.js

@@ -18,7 +18,6 @@ const STORY_STATUS_ENUM = [
  * A Component for adding or editing a new user story.
  */
 class EditStory extends Component {
-
   state = {
     /* This will be used for a new user story. */
     story: {
@@ -87,6 +86,11 @@ class EditStory extends Component {
     }
   }
 
+  doCancelHandler = () => {
+    this.props.history.goBack();
+  }
+
+
   render() {
     console.log('story', this.state.story);
     const title = this.state.story._id === undefined ? 'Add Story': 'Edit Story';
@@ -94,7 +98,7 @@ class EditStory extends Component {
       return null;
     }
     return (
-      <div className={classes.EditStory}>
+      <div className={['panel', 'panel-default', classes.EditStory].join(' ')}>
         <h1>{title}</h1>
         <form>
           <div className="container-fluid">
@@ -145,8 +149,9 @@ class EditStory extends Component {
         </form>
         <div className="container-fluid">
           <div className="row">
-            <div className="col-sm-12">
-              <button onClick={this.doSaveHandler}>Save</button>
+            <div className="col-sm-12 text-right">
+              <button className="btn btn-default" onClick={this.doCancelHandler} style={{marginRight: '5px'}}>Cancel</button>
+              <button className="btn btn-primary" onClick={this.doSaveHandler}>Save</button>
             </div>
           </div>
         </div>
