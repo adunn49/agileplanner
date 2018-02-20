@@ -25,6 +25,7 @@ module.exports.storiesGetWithId = function(req, res) {
 }
 
 module.exports.storiesPost = function (req, res) {
+  console.log('post story');
   var story = new Story({
     title: req.body.title,
     description: req.body.description,

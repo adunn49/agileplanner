@@ -21,6 +21,7 @@ class App extends Component {
           <Route exact path="/story/:id/tasks" component={Tasks} />
           <Route exact path="/addstory" component={EditStory} />
           <Route exact path="/editstory/:id" component={EditStory} />
+          <Route exact path="/" component={StoryListView} />
         </div>
       </BrowserRouter>
     );

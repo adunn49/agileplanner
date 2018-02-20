@@ -56,3 +56,21 @@ export const initStory = (storyId) => {
       });
   }
 }
+
+export const saveSuccess = () => {
+    return {
+        type: actionTypes.SAVE_SUCCESS
+    };
+};
+
+export const saveEditedStory = (story) => {
+  return dispatch => {
+    return axios.patch('./stories/' + story._id, story);
+  }
+}
+
+export const saveNewStory = (story, successUrl) => {
+  return dispatch => {
+    return axios.post('./stories', story);
+  }
+}

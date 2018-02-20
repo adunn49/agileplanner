@@ -18,11 +18,13 @@ class StoryListView extends Component {
     }
     return (
       <Aux>
-        <h1>User Stories</h1>
+        <h1>Story List</h1>
         <StoryList stories={this.props.stories} onDeleteHandler={(storyId) => this.props.onDeleteHandler(storyId)}></StoryList>
-        <NavLink to="/addstory">
-          <button className={'btn btn-sm btn-default'}>Add User Story</button>
-        </NavLink>
+        <div className="text-right">
+          <NavLink to="/addstory">
+            <button className={'btn btn-primary'}>Add Story</button>
+          </NavLink>
+        </div>
       </Aux>
     );
   }

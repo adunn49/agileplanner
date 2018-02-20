@@ -44,6 +44,7 @@ export class PlanningBoard extends Component {
     }
     return (
       <Aux>
+        <h1>Planning Board</h1>
         <div className={classes.PlanningBoard} >
           {items}
         </div>

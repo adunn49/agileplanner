@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 import * as actions from '../../store/actions/story_actions';
 import classes from './EditStory.css';
-import axios from '../../axios-stories';
 
 const STORY_STATUS_ENUM = [
   'backlog',
@@ -73,16 +72,11 @@ class EditStory extends Component {
    */
   doSaveHandler = () => {
     if (this.state.isEditing) {
-      let story = {...this.state.story};
-      axios.patch('/stories/' + story._id, {...this.state.story})
-        .then(response => {
-          this.props.history.goBack();
-        });
+      this.props.saveEditedStory({...this.state.story})
+        .then(() => this.props.history.goBack());
     } else {
-      axios.post('/stories', {...this.state.story})
-        .then(response => {
-          this.props.history.goBack();
-        });
+      this.props.saveNewStory({...this.state.story})
+        .then(() => this.props.history.goBack());
     }
   }
 
@@ -109,6 +103,7 @@ class EditStory extends Component {
                   <FormControl onChange={(event) => this.handleChange(event, 'title')}
                     type="text"
                     placeholder="Enter Title"
+                    autocomplete="off"
                     value={this.state.story.title}/>
                 </FormGroup>
               </div>
@@ -119,6 +114,7 @@ class EditStory extends Component {
                   <ControlLabel>Description</ControlLabel>
                   <FormControl placeholder="Enter Description"
                     onChange={(event) => this.handleChange(event, 'description')}
+                    autocomplete="off"
                     value={this.state.story.description}/>
                 </FormGroup>
               </div>
@@ -168,7 +164,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-          onInitStory: (storyId) => dispatch(actions.initStory(storyId))
+          onInitStory: (storyId) => dispatch(actions.initStory(storyId)),
+          saveEditedStory: (story) => dispatch(actions.saveEditedStory(story)),
+          saveNewStory: (story) => dispatch(actions.saveNewStory(story, ''))
     }
 }
 
