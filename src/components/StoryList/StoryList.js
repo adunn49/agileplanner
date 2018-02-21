@@ -1,32 +1,42 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 
+import ButtonIcon from './../UI/ButtonIcon/ButtonIcon';
+import classes from './StoryList.css';
+
 const StoryList = (props) => {
 
   let items = props.stories.map(story => {
     return (<tr key={story._id}>
         <td>{story.title}</td>
-        <td>{story.storyStatus}</td>
+        <td><span className={classes.storyStatus}>{story.storyStatus}</span></td>
         <td>{story.owner}</td>
         <td>
           <NavLink to={'/editstory/' + story._id}>
-            <button className={'btn btn-sm btn-default'}>Edit</button>
+            <ButtonIcon
+              title="Edit Story"
+              glyphicon={['glyphicon-pencil', classes['glyphicon--list']].join(' ')} />
           </NavLink>
-          <button className={'btn btn-sm btn-default'} onClick={() => props.onDeleteHandler(story._id)}>Delete</button>
-          <button className={'btn btn-sm btn-default'}>View Tasks</button>
+          <ButtonIcon
+            title="View Story Tasks"
+            glyphicon={['glyphicon-th-list', classes['glyphicon--list']].join(' ')}/>
+            <ButtonIcon
+              title="Delete Story"
+              glyphicon={['glyphicon-trash', classes['glyphicon--list']].join(' ')}
+              onClick={() => props.onDeleteHandler(story._id)}/>
         </td>
       </tr>
     );
   });
 
   return (
-    <table className={['table', 'table-striped'].join(' ')}>
+    <table className={['table', 'table-striped', classes['table-hover']].join(' ')}>
       <thead>
         <tr>
           <th>User Story</th>
           <th>Status</th>
           <th>Owner</th>
-          <th></th>          
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>

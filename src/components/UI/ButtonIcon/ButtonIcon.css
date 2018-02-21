@@ -9,6 +9,10 @@
   position: relative;
 }
 
+.glyhpicon--list {
+  font-size: 14px;
+}
+
 .glyphicon:hover {
   background: #999;
 }

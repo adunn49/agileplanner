@@ -25,10 +25,10 @@ const planningColumn = (props) => {
     <div className={classes.PlanningColumn}>
       <h1 className={classes.PlanningColumn__Title}>{props.title}</h1>
       <div className={columnClasses.join(' ')}>
+        <div className={classes.PlanningColumn__TotalPoints}>{getCategoryTotalPoints()}</div>
         {props.stories.map(story => {
           return <UserStory onDeleteStory={storyId => props.onDelete(storyId)} key={story.id} story={story} />
         })}
-        <div className={classes.PlanningColumn__TotalPoints}>{getCategoryTotalPoints()}</div>
         {addIcon}
       </div>
     </div>

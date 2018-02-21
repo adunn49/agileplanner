@@ -13,7 +13,7 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <div className={[classes.App, 'container'].join(' ')}>
+        <div className={[classes.App, 'container-fluid'].join(' ')}>
           <TopMenu />
           <Route exact path="/team" component={Team} />
           <Route exact path="/planning" component={PlanningBoard} />

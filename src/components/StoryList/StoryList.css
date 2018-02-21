@@ -1,0 +1,17 @@
+table.table-hover>tbody>tr:hover {
+  background-color: #e8e8e8;
+}
+
+.storyStatus {
+  text-transform: capitalize;
+}
+
+.glyphicon--list {
+  font-size: 14px;
+  padding: 7px;
+  width: 28px;
+  height: 28px;
+  border-radius: 14px;
+  margin: 0 2px;
+  background: #cecece;
+}

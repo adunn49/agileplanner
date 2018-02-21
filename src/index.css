@@ -7,3 +7,9 @@ body {
 body.div {
   height: 100%;
 }
+
+h1 {
+  font-size: 2.5rem;
+  color: #7997b1;
+  margin-bottom: 26px;
+}

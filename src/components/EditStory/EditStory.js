@@ -29,7 +29,7 @@ class EditStory extends Component {
   };
 
   /**
-   * componentDidMount - If story is passed in on the props then load this into state.
+   * Handles editing mode and loads an existing story if required.
    */
   componentDidMount() {
     if (this.props.match.params.id) {
@@ -56,7 +56,7 @@ class EditStory extends Component {
   /**
    * Called when the user types in an input field.
    */
-  handleChange = (event, controlId) => {
+  handleUserInput = (event, controlId) => {
     let story = {
       ...this.state.story
     };
@@ -100,7 +100,7 @@ class EditStory extends Component {
               <div className="col-sm-12">
                 <FormGroup controlId="title">
                   <ControlLabel>Title</ControlLabel>
-                  <FormControl onChange={(event) => this.handleChange(event, 'title')}
+                  <FormControl onChange={(event) => this.handleUserInput(event, 'title')}
                     type="text"
                     placeholder="Enter Title"
                     autocomplete="off"
@@ -113,7 +113,7 @@ class EditStory extends Component {
                 <FormGroup controlId="description">
                   <ControlLabel>Description</ControlLabel>
                   <FormControl placeholder="Enter Description"
-                    onChange={(event) => this.handleChange(event, 'description')}
+                    onChange={(event) => this.handleUserInput(event, 'description')}
                     autocomplete="off"
                     value={this.state.story.description}/>
                 </FormGroup>
@@ -125,7 +125,7 @@ class EditStory extends Component {
                   <ControlLabel>Story Status</ControlLabel>
                   <FormControl componentClass="select" placeholder="Select"
                     value={this.state.story.storyStatus}
-                    onChange={(event) => this.handleChange(event, 'storyStatus')}>
+                    onChange={(event) => this.handleUserInput(event, 'storyStatus')}>
                     {STORY_STATUS_ENUM.map((status) => {
                       return (<option value={status}>{status}</option>);
                     })}
@@ -136,7 +136,8 @@ class EditStory extends Component {
                 <FormGroup controlId="storySize">
                   <ControlLabel>Story Size</ControlLabel>
                   <FormControl placeholder="Enter points estimate"
-                     onChange={(event) => this.handleChange(event, 'storySize')}
+                    autocomplete="off"
+                     onChange={(event) => this.handleUserInput(event, 'storySize')}
                      value={this.state.story.storySize}/>
                 </FormGroup>
               </div>
