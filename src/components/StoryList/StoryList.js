@@ -6,7 +6,7 @@ import classes from './StoryList.css';
 
 const StoryList = (props) => {
 
-  let items = props.stories.map(story => {
+  let rows = props.stories.map(story => {
     return (<tr key={story._id}>
         <td>{story.title}</td>
         <td><span className={classes.storyStatus}>{story.storyStatus}</span></td>
@@ -29,6 +29,10 @@ const StoryList = (props) => {
     );
   });
 
+  if (rows.length === 0) {
+    rows = (<tr><td colspan="4" className="text-center">User Stories that you add will appear in this list.</td></tr>);
+  }
+
   return (
     <table className={['table', 'table-striped', classes['table-hover']].join(' ')}>
       <thead>
@@ -40,7 +44,7 @@ const StoryList = (props) => {
         </tr>
       </thead>
       <tbody>
-        {items}
+        {rows}
       </tbody>
     </table>
   );
