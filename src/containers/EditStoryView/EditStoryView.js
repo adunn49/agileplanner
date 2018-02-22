@@ -18,13 +18,6 @@ const STORY_STATUS_ENUM = [
  */
 class EditStoryView extends Component {
   state = {
-    /* This will be used for a new user story. */
-    story: {
-      title: '',
-      description: '',
-      storyStatus: STORY_STATUS_ENUM[0],
-      storySize: null
-    },
     isEditing: false
   };
 
@@ -36,23 +29,13 @@ class EditStoryView extends Component {
       this.setState({
         isEditing: true
       })
-      this.props.onInitStory(this.props.match.params.id);
     } else {
       this.setState({
         isEditing: false
       })
     }
+    this.props.onInitStory(this.props.match.params.id);
   }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.story) {
-      let story = {...nextProps.story};
-      this.setState({
-        story: story
-      });
-    }
-  }
-
 
   /**
    * Called when the user clicks the save button. This commits the new user story
@@ -74,7 +57,6 @@ class EditStoryView extends Component {
 
 
   render() {
-    console.log('story', this.props.story);
     if (!this.props.story) {
       return null;
     }

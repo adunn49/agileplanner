@@ -4,7 +4,7 @@ import axios from '../../axios-stories';
 /**
  * Action creators for user stories.
  */
- 
+
 export const setStories = (stories) => {
     return {
         type: actionTypes.SET_STORIES,
@@ -51,13 +51,22 @@ export const initDeleteStory = (storyId) => {
 
 export const initStory = (storyId) => {
   return dispatch => {
-    axios.get('/stories/' + storyId)
-      .then(response => {
-        dispatch(setStory(response.data.story, storyId));
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    if (storyId) {
+      axios.get('/stories/' + storyId)
+        .then(response => {
+          dispatch(setStory(response.data.story, storyId));
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    } else {
+      dispatch(setStory({
+        title: '',
+        description: '',
+        storyStatus: 'backlog',
+        storySize: null
+      }, undefined))
+    }
   }
 }
 
