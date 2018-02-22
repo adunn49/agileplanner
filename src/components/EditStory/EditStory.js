@@ -13,35 +13,24 @@ const STORY_STATUS_ENUM = [
   'complete'
 ];
 
-/**
- * A Component for adding or editing a new user story.
- */
 class EditStory extends Component {
-  state = {
-    /* This will be used for a new user story. */
-    story: {
-      title: '',
-      description: '',
-      storyStatus: STORY_STATUS_ENUM[0],
-      storySize: null
-    },
-    isEditing: false
-  };
 
   /**
-   * Handles editing mode and loads an existing story if required.
+   * Called when the user types in an input field.
    */
+  handleUserInput = (event, controlId) => {
+    let story = {...this.state.story};
+    story[controlId] = event.target.value;
+    this.setState({
+      story: story
+    });
+  }
+
   componentDidMount() {
-    if (this.props.match.params.id) {
-      this.setState({
-        isEditing: true
-      })
-      this.props.onInitStory(this.props.match.params.id);
-    } else {
-      this.setState({
-        isEditing: false
-      })
-    }
+    let {story} = {...this.props};
+    this.setState({
+      story:  story
+    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -53,47 +42,11 @@ class EditStory extends Component {
     }
   }
 
-  /**
-   * Called when the user types in an input field.
-   */
-  handleUserInput = (event, controlId) => {
-    let story = {
-      ...this.state.story
-    };
-    story[controlId] = event.target.value;
-    this.setState({
-      story: story
-    });
-  }
-
-  /**
-   * Called when the user clicks the save button. This commits the new user story
-   * to the server and returns to the planning page.
-   */
-  doSaveHandler = () => {
-    if (this.state.isEditing) {
-      this.props.saveEditedStory({...this.state.story})
-        .then(() => this.props.history.goBack());
-    } else {
-      this.props.saveNewStory({...this.state.story})
-        .then(() => this.props.history.goBack());
-    }
-  }
-
-  doCancelHandler = () => {
-    this.props.history.goBack();
-  }
-
-
   render() {
-    console.log('story', this.state.story);
-    const title = this.state.story._id === undefined ? 'Add Story': 'Edit Story';
-    if (!this.state.story) {
-      return null;
-    }
-    return (
+    if (this.state === null) return null;
+    return(
       <div className={['panel', 'panel-default', classes.EditStory].join(' ')}>
-        <h1>{title}</h1>
+        <h1>{this.props.title}</h1>
         <form>
           <div className="container-fluid">
             <div className="row">
@@ -103,7 +56,7 @@ class EditStory extends Component {
                   <FormControl onChange={(event) => this.handleUserInput(event, 'title')}
                     type="text"
                     placeholder="Enter Title"
-                    autocomplete="off"
+                    autoComplete="off"
                     value={this.state.story.title}/>
                 </FormGroup>
               </div>
@@ -114,7 +67,7 @@ class EditStory extends Component {
                   <ControlLabel>Description</ControlLabel>
                   <FormControl placeholder="Enter Description"
                     onChange={(event) => this.handleUserInput(event, 'description')}
-                    autocomplete="off"
+                    autoComplete="off"
                     value={this.state.story.description}/>
                 </FormGroup>
               </div>
@@ -136,7 +89,7 @@ class EditStory extends Component {
                 <FormGroup controlId="storySize">
                   <ControlLabel>Story Size</ControlLabel>
                   <FormControl placeholder="Enter points estimate"
-                    autocomplete="off"
+                    autoComplete="off"
                      onChange={(event) => this.handleUserInput(event, 'storySize')}
                      value={this.state.story.storySize}/>
                 </FormGroup>
@@ -147,28 +100,14 @@ class EditStory extends Component {
         <div className="container-fluid">
           <div className="row">
             <div className="col-sm-12 text-right">
-              <button className="btn btn-default" onClick={this.doCancelHandler} style={{marginRight: '5px'}}>Cancel</button>
-              <button className="btn btn-primary" onClick={this.doSaveHandler}>Save</button>
+              <button className="btn btn-default" onClick={this.props.doCancelHandler} style={{marginRight: '5px'}}>Cancel</button>
+              <button className="btn btn-primary" onClick={() => this.props.doSaveHandler(this.state.story)}>Save</button>
             </div>
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
 
-const mapStateToProps = state => {
-    return {
-        story: state.story
-    };
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-          onInitStory: (storyId) => dispatch(actions.initStory(storyId)),
-          saveEditedStory: (story) => dispatch(actions.saveEditedStory(story)),
-          saveNewStory: (story) => dispatch(actions.saveNewStory(story, ''))
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(EditStory);
+export default EditStory;

@@ -22,7 +22,7 @@ class StoryListView extends Component {
         <StoryList stories={this.props.stories}
           onDeleteHandler={(storyId) => this.props.onDeleteHandler(storyId)}>
         </StoryList>
-        <div className="text-right">
+        <div className="text-center">
           <NavLink to="/addstory">
             <button className={'btn btn-primary'}>Add Story</button>
           </NavLink>

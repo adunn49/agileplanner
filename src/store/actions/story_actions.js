@@ -1,6 +1,10 @@
 import * as actionTypes from './actionTypes';
 import axios from '../../axios-stories';
 
+/**
+ * Action creators for user stories.
+ */
+ 
 export const setStories = (stories) => {
     return {
         type: actionTypes.SET_STORIES,
