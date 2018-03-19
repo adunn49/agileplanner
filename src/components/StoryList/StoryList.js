@@ -10,7 +10,6 @@ const StoryList = (props) => {
     return (<tr key={story._id}>
         <td>{story.title}</td>
         <td><span className={classes.storyStatus}>{story.storyStatus}</span></td>
-        <td>{story.owner}</td>
         <td>
           <NavLink to={'/editstory/' + story._id}>
             <ButtonIcon
@@ -30,7 +29,7 @@ const StoryList = (props) => {
   });
 
   if (rows.length === 0) {
-    rows = (<tr><td colspan="4" className="text-center">User Stories that you add will appear in this list.</td></tr>);
+    rows = (<tr><td colspan="3" className="text-center">User Stories that you add will appear in this list.</td></tr>);
   }
 
   return (
@@ -39,7 +38,6 @@ const StoryList = (props) => {
         <tr>
           <th>User Story</th>
           <th>Status</th>
-          <th>Owner</th>
           <th>Actions</th>
         </tr>
       </thead>
