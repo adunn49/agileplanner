@@ -75,7 +75,7 @@ class EditStoryView extends Component {
 
 const mapStateToProps = state => {
     return {
-        story: state.story
+        story: state.stories.story
     };
 };
 

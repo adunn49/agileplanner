@@ -34,7 +34,7 @@ class StoryListView extends Component {
 
 const mapStateToProps = state => {
     return {
-        stories: state.stories
+        stories: state.stories.stories
     };
 };
 

@@ -8,6 +8,7 @@ const topMenu = (props) => {
       <ul>
         <li><NavLink to="/planning">Planning Board</NavLink></li>
         <li><NavLink to="/storylist">Story List</NavLink></li>
+        <li><NavLink to="/logout">Logout</NavLink></li>
       </ul>
     </nav>
   );

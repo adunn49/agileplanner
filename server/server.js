@@ -14,11 +14,13 @@ app.use(bodyParser.json());
 // Required Controllers
 var ctrlUsers = require('./controllers/users');
 var ctrlStories = require('./controllers/stories');
+var ctrlAuthentication = require('./controllers/authentication');
 
 app.use(function(req, res, next) {
  res.setHeader('Access-Control-Allow-Origin', '*');
  res.setHeader('Access-Control-Allow-Credentials', 'true');
  res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT,DELETE,PATCH');
+ res.setHeader('Access-Control-Expose-Headers', 'x-auth');
  res.setHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers');
 //and remove cacheing so we get the most recent comments
  res.setHeader('Cache-Control', 'no-cache');
@@ -26,6 +28,8 @@ app.use(function(req, res, next) {
 });
 
 // Routes
+router.post('/login', ctrlAuthentication.login);
+
 router.get('/users', ctrlUsers.usersGet);
 router.post('/users', ctrlUsers.usersPost);
 

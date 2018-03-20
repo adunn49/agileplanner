@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import classes from './PlanningBoard.css';
 import PlanningColumn from './PlanningColumn';
@@ -25,10 +26,16 @@ export class PlanningBoard extends Component {
   };
 
   componentDidMount() {
-    this.props.onInitStories();
+    if (this.props.isAuthenticated) {
+      this.props.onInitStories();
+    }
   }
 
   render () {
+    if (!this.props.isAuthenticated) {
+      return (<Redirect to='/login'></Redirect>);
+    }
+
     let items = [];
     for (let index = 0; index < this.state.stati.length; index++) {
       let filteredStories = this.props.stories.filter(story => {
@@ -58,7 +65,8 @@ export class PlanningBoard extends Component {
 
 const mapStateToProps = state => {
     return {
-        stories: state.stories
+        stories: state.stories.stories,
+        isAuthenticated: state.authentication.token !== null
     };
 };
 
