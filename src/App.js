@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { BrowserRouter, Route } from 'react-router-dom';
 
 import classes from './App.css';
+import Aux from './hoc/Aux/Auxillary';
 import PlanningBoard from './containers/PlanningBoard/PlanningBoard';
 import TopMenu from './components/UI/Navigation/TopMenu/TopMenu';
 import StoryListView from './containers/StoryListView/StoryListView';
@@ -15,10 +16,12 @@ import Logout from './containers/Authentication/Logout/Logout';
 
 class App extends Component {
   render() {
-    return (
-      <BrowserRouter>
-        <div className={[classes.App, 'container-fluid'].join(' ')}>
-          {this.props.isAuthenticated ? (<TopMenu/>) : null}
+
+    let routes = (<Route exact path="/" component={Authentication} />);
+    if (this.props.isAuthenticated) {
+      routes = (
+        <Aux>
+          <TopMenu/>
           <Route exact path="/team" component={Team} />
           <Route exact path="/planning" component={PlanningBoard} />
           <Route exact path="/storylist" component={StoryListView} />
@@ -27,8 +30,14 @@ class App extends Component {
           <Route exact path="/editstory/:id" component={EditStoryView} />
           <Route exact path="/login" component={Authentication} />
           <Route exact path="/logout" component={Logout} />
-
           <Route exact path="/" component={Authentication} />
+        </Aux>
+      );
+    }
+    return (
+      <BrowserRouter>
+        <div className={[classes.App, 'container-fluid'].join(' ')}>
+          {routes}
         </div>
       </BrowserRouter>
     );
